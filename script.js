@@ -1,82 +1,86 @@
 let counterPlayer = 0;
 let counterComputer = 0;
+let counterRound = 0;
 
-const getRandom = () => Math.floor(Math.random() * 3) + 1;
+let button = document.querySelector('button');
+let playerResult = document.querySelector('#player-result');
+let computerResult = document.querySelector('#computer-result');
+let roundResult = document.querySelector('#round-result');
+let computerChoiceCounter = document.querySelector('#computer-choice');
+let rock1 = document.querySelector('#rock');
+let paper2 = document.querySelector('#paper');
+let scissors3 = document.querySelector('#scissors');
+let getUserChoice;
 
-const getComputerChoice = () => {
+playerResult.textContent = `Player: ${counterPlayer}`;
+computerResult.textContent = `Computer: ${counterComputer}`;
+roundResult.textContent = `Round: ${counterRound}`;
+
+rock1.addEventListener('click', () => {
+    getUserChoice = 1;
+    getComputer = getComputerChoice();
+    let gameResult = game(playRound(getUserChoice, getComputer));
+    console.log(gameResult);
+    roundResult.textContent = `Round: ${counterRound = (counterRound + 1) - 1}`;
+});
+
+paper2.addEventListener('click', () => {
+    getUserChoice = 2;
+    console.log(getUserChoice);
+});
+
+scissors3.addEventListener('click', () => {
+    getUserChoice = 3;
+    console.log(getUserChoice);
+});
+
+function getRandom() {
+    return (Math.floor(Math.random() * 3) + 1);
+}
+
+function getComputerChoice() {
     let choice = getRandom();
     
     switch (choice) {
         case 1:
-            return "ROCK";
+            return 1;
         case 2:
-            return "PAPER";
+            return 2;
         case 3:
-            return "SCISSORS";
+            return 3;
         default:
             throw "RANDOM ERROR: THERE'S NO RANDOM 1 to 3 NUMBER";
     }
-};
+}
 
-const getUserChoice = () => {
-    let choice = prompt(`Enter your weapon! Score is:\n You: ${counterPlayer} vs Computer: ${counterComputer}`);
-
-    return choice.toUpperCase();
-};
-
-const playRound = (userChoice, computerChoice) => {
-    const playerSelection = userChoice();
-    const computerSelection = computerChoice();
-
-    switch (playerSelection) {
-        case computerSelection:
-            alert("It's a draw!");
-            return "DRAW";
-        case "ROCK":
-            if (computerSelection === "SCISSORS") { 
-                alert("You WIN! Rock beats Paper");
-                return "WIN";
-            };
-            if (computerSelection === "PAPER") {
-                alert("You Lose! Paper beats Rock");
-                return "LOST";
-            };
-        case "PAPER":
-            if (computerSelection === "ROCK") {
-                alert("You WIN! Paper beats Rock");
-                return "WIN";
-            };
-            if (computerSelection === "SCISSORS") {
-                alert ("You Lose! Scissors beats Paper");
-                return "LOST";
-            };
-        case "SCISSORS":
-            if (computerSelection === "PAPER") {
-                alert("You WIN! Scissors beats Paper");
-                return "WIN";
-            };
-            if(computerSelection === "ROCK") {
-                alert("You Lose! Rock beats Scissors");
-                return "LOST";
-            };
+function playRound(userChoice, computerChoice) {
+    switch(userChoice) {
+        case computerChoice:
+            return "draw";
+        case 1:
+            if (computerChoice === 3) return "win";
+            if (computerChoice === 2) return "lost";
+        case 2:
+            if (computerChoice === 1) return "win";
+            if (computerChoice === 3) return "lost";
+        case 3:
+            if (computerChoice === 2) return "win";
+            if (computerChoice === 1) return "lost";
     };
-};
+}
 
-const game = () => {
-    for (let i = 0; i <= 5; i++) {
-        switch (playRound(getUserChoice, getComputerChoice)) {
-            case "WIN":
-                counterPlayer++;
-                break;
-            case "LOST":
-                counterComputer++;
-                break;
-            case "DRAW":
-                break;
-        };
-    };
-
-    alert(`GAME OVER. FINAL SCORE:\nYOU: ${counterPlayer} COMPUTER: ${counterComputer}`);
-};
-
-game();
+function game(round) {
+    switch(round) {
+        case "win":
+            counterPlayer++;
+            counterRound++;
+            return 1;
+        case "lost":
+            counterComputer++;
+            counterRound++;
+            return 0;
+        case "draw":
+            counterRound++;
+            return 2;
+    }  
+}
