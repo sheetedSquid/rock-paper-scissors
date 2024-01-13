@@ -6,7 +6,7 @@ let button = document.querySelector('button');
 let playerResult = document.querySelector('#player-result');
 let computerResult = document.querySelector('#computer-result');
 let roundResult = document.querySelector('#round-result');
-let computerChoiceCounter = document.querySelector('#computer-choice');
+let computerChoiceDisplay = document.querySelector('#computer-choice');
 let rock1 = document.querySelector('#rock');
 let paper2 = document.querySelector('#paper');
 let scissors3 = document.querySelector('#scissors');
@@ -21,17 +21,20 @@ rock1.addEventListener('click', () => {
     getComputer = getComputerChoice();
     let gameResult = game(playRound(getUserChoice, getComputer));
     console.log(gameResult);
-    roundResult.textContent = `Round: ${counterRound = (counterRound + 1) - 1}`;
 });
 
 paper2.addEventListener('click', () => {
     getUserChoice = 2;
-    console.log(getUserChoice);
+    getComputer = getComputerChoice();
+    let gameResult = game(playRound(getUserChoice, getComputer));
+    console.log(gameResult);
 });
 
 scissors3.addEventListener('click', () => {
     getUserChoice = 3;
-    console.log(getUserChoice);
+    getComputer = getComputerChoice();
+    let gameResult = game(playRound(getUserChoice, getComputer));
+    console.log(gameResult);
 });
 
 function getRandom() {
@@ -42,11 +45,14 @@ function getComputerChoice() {
     let choice = getRandom();
     
     switch (choice) {
-        case 1:
+        case 1: //computer choose rock
+            computerChoiceDisplay.textContent = "Rock";
             return 1;
-        case 2:
+        case 2: //computer choose paper 
+            computerChoiceDisplay.textContent = "Paper";
             return 2;
-        case 3:
+        case 3: //computer choose scissors
+            computerChoiceDisplay.textContent = "Scissors";
             return 3;
         default:
             throw "RANDOM ERROR: THERE'S NO RANDOM 1 to 3 NUMBER";
@@ -73,14 +79,19 @@ function game(round) {
     switch(round) {
         case "win":
             counterPlayer++;
+            playerResult.textContent = `Player: ${counterPlayer}`;
             counterRound++;
+            roundResult.textContent = `Round: ${counterRound}`;
             return 1;
         case "lost":
             counterComputer++;
+            computerResult.textContent = `Computer: ${counterComputer}`;
             counterRound++;
+            roundResult.textContent = `Round: ${counterRound}`;
             return 0;
         case "draw":
             counterRound++;
+            roundResult.textContent = `Round: ${counterRound}`;
             return 2;
     }  
 }
