@@ -2,27 +2,27 @@ let counterPlayer = 0;
 let counterComputer = 0;
 let counterRound = 0;
 
-let body = document.querySelector('body');
-let playerResult = document.querySelector('#player-result');
-let computerResult = document.querySelector('#computer-result');
-let roundResult = document.querySelector('#round-result');
-let computerChoiceDisplay = document.querySelector('#computer-choice');
-let uselessSign = document.querySelector('#useless-sign');
-let rock1 = document.querySelector('#rock');
-let paper2 = document.querySelector('#paper');
-let scissors3 = document.querySelector('#scissors');
+let body = document.querySelector("body");
+let playerResult = document.querySelector("#player-result");
+let computerResult = document.querySelector("#computer-result");
+let roundResult = document.querySelector("#round-result");
+let computerChoiceDisplay = document.querySelector("#computer-choice");
+let uselessSign = document.querySelector("#useless-sign");
+let rock1 = document.querySelector("#rock");
+let paper2 = document.querySelector("#paper");
+let scissors3 = document.querySelector("#scissors");
 let getUserChoice;
-let winnerDisplay = document.createElement('div');
+let getComputer;
+let winnerDisplay = document.createElement("div");
 
 playerResult.textContent = `Player: ${counterPlayer}`;
 computerResult.textContent = `Computer: ${counterComputer}`;
 roundResult.textContent = `Round: ${counterRound}`;
 
-rock1.addEventListener('click', () => {
+rock1.addEventListener("click", () => {
     getUserChoice = 1;
     getComputer = getComputerChoice();
-    let gameResult = game(playRound(getUserChoice, getComputer));
-    console.log(gameResult);
+    game(playRound(getUserChoice, getComputer));
     if (counterRound >= 5) {
         removeAll();
         winnerDisplay.textContent = `${endGame(counterPlayer, counterComputer)}`;
@@ -30,11 +30,10 @@ rock1.addEventListener('click', () => {
     }
 });
 
-paper2.addEventListener('click', () => {
+paper2.addEventListener("click", () => {
     getUserChoice = 2;
     getComputer = getComputerChoice();
-    let gameResult = game(playRound(getUserChoice, getComputer));
-    console.log(gameResult);
+    game(playRound(getUserChoice, getComputer));
     if (counterRound >= 5) {
         removeAll();
         winnerDisplay.textContent = `${endGame(counterPlayer, counterComputer)}`;
@@ -42,22 +41,16 @@ paper2.addEventListener('click', () => {
     }
 });
 
-scissors3.addEventListener('click', () => {
+scissors3.addEventListener("click", () => {
     getUserChoice = 3;
     getComputer = getComputerChoice();
-    let gameResult = game(playRound(getUserChoice, getComputer));
-    console.log(gameResult);
+    game(playRound(getUserChoice, getComputer));
     if (counterRound >= 5) {
         removeAll();
         winnerDisplay.textContent = `${endGame(counterPlayer, counterComputer)}`;
         body.appendChild(winnerDisplay);
     }
 });
-
-if (counterRound === 5) {
-    console.log('yoyoy')
-    playerResult.remove();
-}
 
 function getRandom() {
     return (Math.floor(Math.random() * 3) + 1);
@@ -96,8 +89,6 @@ function playRound(userChoice, computerChoice) {
             if (computerChoice === 1) return "lost";
     };
 }
-
-
 
 function game(round) {
     switch(round) {
